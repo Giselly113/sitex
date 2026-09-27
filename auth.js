@@ -1,0 +1,4 @@
+const login=document.querySelector("#form"), register=document.querySelector("#register");
+async function send(url,data){const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});const x=await r.json();if(!r.ok)throw Error(x.error||"Erro");return x}
+if(login)login.addEventListener("submit",async e=>{e.preventDefault();const m=document.querySelector("#msg");try{await send("/api/auth/login",{email:email.value,password:password.value});location.href="/dashboard.html"}catch(x){m.textContent=x.message;m.className="error"}});
+if(register)register.addEventListener("submit",async e=>{e.preventDefault();const m=document.querySelector("#msg");try{await send("/api/auth/register",{name:name.value,email:email.value,password:password.value});location.href="/dashboard.html"}catch(x){m.textContent=x.message;m.className="error"}});
